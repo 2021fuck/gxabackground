@@ -29,7 +29,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+    <el-dialog title="" :visible.sync="dialogVisible" width="80%" :before-close="handleClose">
       <el-form :model="newNotice" label-width="80px" label-position="left">
         <el-form-item label="撰写人">
           <el-input v-model="newNotice.name" />
@@ -55,12 +55,16 @@
           <el-input v-model="newNotice.about" :autosize="{ minRows: 1, maxRows: 4 }" type="textarea" />
         </el-form-item>
         <el-form-item label="内容">
-          <el-input v-model="newNotice.context" :autosize="{ minRows: 4, maxRows: 4 }" type="textarea" />
+          <!-- <el-input v-model="newNotice.context" :autosize="{ minRows: 4, maxRows: 4 }" type="textarea" /> -->
+          <mavon-editor v-model="newNotice.context"/>
+
         </el-form-item>
       </el-form>
+
       <div style="text-align:right;">
         <el-button type="danger" @click="quxiao">取消</el-button>
         <el-button type="primary" @click="sendNotice">提交</el-button>
+        <!-- <el-button type="primary" @click="printcontent">打印</el-button> -->
       </div>
     </el-dialog>
   </div>
@@ -79,6 +83,7 @@ const defaultNotice = {
 export default {
   data() {
     return {
+      content:'',
       centerDialogVisible: false,
       dialogVisible: false,
       newNotice: defaultNotice,
@@ -260,6 +265,9 @@ methods: {
   quxiao() {
     this.dialogVisible = false
     this.resetNotice()
+  },
+  printcontent(){
+    console.log(this.content)
   }
 },
 

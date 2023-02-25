@@ -1,7 +1,6 @@
 <template xmlns="">
   <div class="dashboard-container">
     <PanelGroup @handleSetLineChartData="handleSetLineChartData" />
-    <!--    <div class="dashboard-text">首页</div>-->
     <el-row style="background:#fff;margin-bottom:32px;height:200px; margin-top: 50px;">
       <el-col :xs="12" :sm="12" :lg="11" class="notice" style="margin-right:109px">
         <h3 class="title">公告</h3>
@@ -15,6 +14,7 @@
           单位反映情况要加盖公章;
           
           个人反映情况要签署真实姓名，并留下真实的联系电话、地址及邮编。</p>
+        <!-- <p class="markdown-body" style="padding:10px 5px;text-indent: 2em;" v-html="notice.content"></p> -->
         <div class="pubinfo">
           <p>发布者:<span>黄sir</span></p>
           <p>所属部门:<span>住房和城乡建设局</span></p>
@@ -30,10 +30,30 @@
 <script>
 import { mapGetters } from 'vuex'
 import PanelGroup from '@/views/dashboard/components/PanelGroup'
+import 'github-markdown-css'
+// import 'markdown-it' from '@'
 export default {
   name: 'Dashboard',
   components: {
     PanelGroup
+  },
+  data() {
+    return {
+      notice: {
+        date: '',
+        name: '',
+        bumen: '',
+        title: '',
+        about: '',
+        context: '',
+        importance: 0,
+        content: " "
+      }
+    }
+  },
+  created() {
+    var md = window.markdownit();
+    var result = md.render('# markdown-it rulezz!');
   },
   computed: {
     ...mapGetters([
